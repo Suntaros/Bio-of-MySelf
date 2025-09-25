@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume | [วชิรวิทย์ มณีสุข]</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* ================================== */
+        /* CSS สำหรับการออกแบบ Resume โปรแกรมเมอร์ */
+        /* ================================== */
+
+        :root {
+            --primary-color: #34495e;
+            /* สีน้ำเงินเข้ม/เทา สำหรับหัวข้อหลัก */
+            --secondary-color: #2c3e50;
+            /* สีเข้มกว่าเล็กน้อย */
+            --text-color: #333;
+            --light-gray: #ecf0f1;
+            /* สีพื้นหลังอ่อน */
+            --line-height: 1.6;
+        }
+
+        body {
+            font-family: 'Kanit', sans-serif;
+            line-height: var(--line-height);
+            color: var(--text-color);
+            margin: 0;
+            /* เพิ่ม padding-top เพื่อให้เนื้อหาไม่ถูกปุ่มย้อนกลับบัง (ไม่จำเป็นถ้าปุ่มอยู่นอก .resume-container) */
+            padding: 20px;
+            background-color: #f7f9fa;
+        }
+
+        /* ---------------------------------- */
+        /* CSS ใหม่สำหรับปุ่มย้อนกลับ */
+        /* ---------------------------------- */
+        .back-button {
+            position: fixed;
+            /* ทำให้ปุ่มติดอยู่กับหน้าจอเสมอ */
+            top: 20px;
+            /* ระยะห่างจากขอบบนของหน้าจอ */
+            left: 20px;
+            /* ระยะห่างจากขอบซ้ายของหน้าจอ */
+            z-index: 1000;
+            /* ทำให้ปุ่มอยู่เหนือองค์ประกอบอื่น ๆ */
+            padding: 10px 15px;
+            background-color: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 0.9em;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+
+        .back-button:hover {
+            background-color: var(--secondary-color);
+        }
+
+        /* ---------------------------------- */
+
+        .resume-container {
+            max-width: 850px;
+            margin: 40px auto;
+            padding: 40px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        /* ส่วนหัว */
+        .header {
+            text-align: center;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+            border-bottom: 3px solid var(--primary-color);
+        }
+
+        .profile-pic {
+            width: 120px;
+            /* ขนาดรูป */
+            height: 120px;
+            border-radius: 50%;
+            /* ทำให้รูปเป็นวงกลม */
+            object-fit: cover;
+            /* ครอบคลุมพื้นที่แต่ไม่ยืดรูป */
+            margin-bottom: 15px;
+            border: 3px solid var(--primary-color);
+            /* ขอบรอบรูป */
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--secondary-color);
+        }
+
+        .header h2 {
+            font-size: 1.2em;
+            font-weight: 400;
+            color: var(--primary-color);
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+
+        .contact-info {
+            font-size: 0.9em;
+            color: #666;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 5px 15px;
+        }
+
+        .contact-info a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .contact-info a:hover {
+            text-decoration: underline;
+        }
+
+        /* หัวข้อส่วนต่างๆ */
+        .section {
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 1.4em;
+            font-weight: 600;
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--light-gray);
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+        }
+
+        /* ทักษะ */
+        .skills-grid {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .skills-grid>div {
+            flex: 1;
+        }
+
+        .skills-grid h4 {
+            font-size: 1em;
+            color: var(--secondary-color);
+            margin-top: 0;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .skills-grid p {
+            font-size: 0.95em;
+            margin: 0;
+        }
+
+        /* ประสบการณ์ทำงาน */
+        .job-entry,
+        .project-entry,
+        .education-entry {
+            margin-bottom: 20px;
+        }
+
+        .job-entry h4 {
+            font-size: 1.1em;
+            font-weight: 600;
+            color: var(--secondary-color);
+            margin-bottom: 2px;
+        }
+
+        .job-meta {
+            font-size: 0.85em;
+            color: #666;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        .job-entry ul {
+            list-style-type: disc;
+            padding-left: 25px;
+            font-size: 0.95em;
+        }
+
+        .job-entry li {
+            margin-bottom: 8px;
+        }
+
+        /* โครงการและไฮไลท์อื่นๆ */
+        .project-entry h4 {
+            font-size: 1em;
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .project-meta {
+            font-size: 0.8em;
+            color: #888;
+            margin-top: 5px;
+        }
+
+        /* การศึกษา */
+        .education-entry h4 {
+            font-size: 1em;
+            color: var(--secondary-color);
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .education-entry p {
+            font-size: 0.9em;
+            margin: 0;
+            color: #666;
+        }
+
+        /* การปรับให้รองรับการพิมพ์ (Print Styles) */
+        @media print {
+            .back-button {
+                display: none;
+                /* ซ่อนปุ่มเมื่อสั่งพิมพ์ */
+            }
+
+            body {
+                background-color: #fff;
+                padding: 0;
+                margin: 0;
+            }
+
+            .resume-container {
+                box-shadow: none;
+                margin: 0;
+                padding: 0;
+            }
+
+            .contact-info span:nth-child(even) {
+                display: none;
+            }
+
+            .skills-grid {
+                display: block;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <a href="javascript:history.back()" class="back-button">
+        &lt; ย้อนกลับ
+    </a>
+
+    <div class="resume-container">
+
+        <header class="header">
+            <img src="./IMAGE/My_Pic.jpg" alt="Profile Picture of [วชิรวิทย์ มณีสุข]" class="profile-pic">
+
+            <h1>วชิรวิทย์ มณีสุข</h1>
+            <h2>Software Developer (Full-Stack/Cloud)</h2>
+            <div class="contact-info">
+                <a href="mailto:assdragonrock5533@gmail.com">assdragonrock5533@gmail.com</a>
+                <span>|</span>
+                <span>(088) 576-9871</span>
+                <span>|</span>
+                <a href="https://www.linkedin.com/in/wachirawit-maneesuk-69a002387/" target="_blank">LinkedIn</a>
+                <span>|</span>
+                <a href="https://github.com/Suntaros" target="_blank">GitHub</a>
+            </div>
+        </header>
+
+        <section class="section">
+            <h3 class="section-title">สรุปโปรไฟล์ (Profile Summary)</h3>
+            <p>
+                **Full-Stack Developer** มือสมัครเล่น **2 ปี** สามารถสร้าง Web Application
+                ที่เน้นประสิทธิภาพและความขยายขนาดได้ด้วย **React** และ **Node.js** และนำเสนอแนวทางการแก้ปัญหาที่ทันสมัย
+            </p>
+        </section>
+
+        <section class="section">
+            <h3 class="section-title">ทักษะทางเทคนิค (Technical Skills)</h3>
+            <div class="skills-grid">
+                <div>
+                    <h4>ภาษาโปรแกรม:</h4>
+                    <p>JavaScript, Python, Java, Html, C#, PhP,</p>
+                </div>
+                <div>
+                    <h4>เฟรมเวิร์ก/ไลบรารี:</h4>
+                    <p>React, Node.js, Django, Spring Boot, Next.js, jQuery</p>
+                </div>
+                <div>
+                    <h4>ฐานข้อมูล/เครื่องมือ:</h4>
+                    <p>PostgreSQL, MongoDB, SQL, Docker, Git, AWS (S3, EC2)</p>
+                </div>
+                <div>
+                    <h4>ทักษะอื่นๆ:</h4>
+                    <p>ซ่อมแซมคอมพิวเตอร์, ประกอบคอมพิวเตอร์, ต่อหรือเปลี่ยนหัวสายlan, รู้เรื่องเกี่ยวกับ Network</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h3 class="section-title">ประสบการณ์งาน (Professional Experience)</h3>
+
+            <div class="job-entry">
+                <h4>Software Engineer | [ชื่อบริษัทปัจจุบัน/ล่าสุด]</h4>
+                <p class="job-meta">-</p>
+                <ul>
+                    <li>-</li>
+                </ul>
+            </div>
+
+            <div class="job-entry">
+                <h4>Junior Developer | [ชื่อบริษัทก่อนหน้า]</h4>
+                <p class="job-meta">-</p>
+                <ul>
+                    <li>-</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="section">
+            <h3 class="section-title">โครงการ/ผลงาน (Selected Projects)</h3>
+            <div class="project-entry">
+                <h4>**Entertainment Website**</h4>
+                <p>สร้าง เว็บอ่านมังงะด้วย PhP&SQL</p>
+                <p class="project-meta"><em>**เทคโนโลยีที่ใช้:** Php SQL Js Css</em> | <a
+                        href="https://drive.google.com/drive/folders/1Of_cA8H2M1QHn3tuqshNRgDk-UMUMhno?usp=sharing"
+                        target="_blank">ดูโค้ดบน Google Drive</a></p>
+            </div>
+        </section>
+
+        <section class="section">
+            <h3 class="section-title">การศึกษา (Education)</h3>
+            <div class="education-entry">
+                <h4>ประกาศนียบัตรวิชาชีพชั้นสูง</h4>
+                <p><strong>[วิทยาลัยเทคนิคนวมินทราชินีมุกดาหาร]</strong> | **พ.ศ. 2565 – พ.ศ. 2567** | เกรดเฉลี่ย (GPA):
+                    3.08</p>
+                    <h4>ปริญญาตรี</h4>
+                <p><strong>[มหาวิทยาลัยนครพนม]</strong> | **ปัจจุบันกำลังศึกษาอยู่** | เกรดเฉลี่ย (GPA):
+                    -</p>
+            </div>
+        </section>
+
+    </div>
+</body>
+
+</html>
